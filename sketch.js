@@ -49,6 +49,7 @@ function draw() {
     impulseDamp     = impulseSlider.value();
     airDamp         = airSlider.value();
     jumpIntensity   = jumpSlider.value();
+    if (clickMass == 200) clickMass = Infinity;
 
     background(150);
     fill(255);
@@ -62,7 +63,7 @@ function draw() {
         balls[i].bounce();
         balls[i].move();        
         balls[i].show();              
-        if(balls[i].lifecycle() > 250) balls.splice(i,1);
+        if(balls[i].lifecycle() == 250) balls.splice(i,1);
 
     }    
 }
@@ -76,6 +77,7 @@ function shakeBalls(){
 
 function mouseClicked(){
     if (mouseX < width && mouseY < height){ 
+        if (clickMass > 180) clikMass = Infinity;
         if(balls.length < 500) createBall(mouseX, mouseY, clickRadius, clickMass);
     } 
 }
@@ -126,6 +128,11 @@ class Circle {
         this.invMass = 1/m;
         this.color = 200;
         this.life = 0;
+        if (m == Infinity){
+            this.color = 100;
+            this.life = 1000;
+            this.vel.set(0, 0);
+        }
     }
 
     show() {        
@@ -140,10 +147,13 @@ class Circle {
     move() {
         this.pos.add(this.vel);
         this.vel.add(this.acc);
-        this.acc = p5.Vector.div(this.force, this.mass);
-        this.force.x = -sign(this.vel.x) * (this.vel.x * this.vel.x) * airDamp;
-        this.force.y = -sign(this.vel.y) * (this.vel.y * this.vel.y) * airDamp + (g/frameRate()) * this.mass;
+        if(this.mass != Infinity){
+            this.acc = p5.Vector.div(this.force, this.mass);
+            this.force.x = -sign(this.vel.x) * (this.vel.x * this.vel.x) * airDamp;
+            this.force.y = -sign(this.vel.y) * (this.vel.y * this.vel.y) * airDamp + (g/frameRate()) * this.mass;
+        }
     }
+
 
     bounce() {
         // Bottom
