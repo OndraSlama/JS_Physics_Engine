@@ -12,7 +12,7 @@ function setup() {
     createP("Click ball mass");
     clickMassSlider = createSlider(5, 200, 50, 1);
     createP("Gravitation constant");
-    gravitySlider = createSlider(3, 100, 30, 1);
+    gravitySlider = createSlider(0, 100, 30, 1);
     createP("Boundary elasticity");
     bounceSlider = createSlider(0, 1, 0.75, 0.05);
     createP("Impact elasticity");
@@ -69,7 +69,7 @@ function draw() {
 
 function shakeBalls(){    
     for(let b of balls){
-        b.force.y += jumpIntensity;
+        b.force.y -= jumpIntensity;
     }
 
 }
