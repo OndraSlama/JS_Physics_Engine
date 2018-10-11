@@ -228,7 +228,7 @@ class Circle {
 
         if ((d < coverage/2) && (d != 0)){           
             
-            // Calculate relative velocity
+             // Calculate relative velocity
             let rv = p5.Vector.sub(other.vel, this.vel);
             let normal = p5.Vector.sub(other.pos, this.pos);
             normal.normalize();
@@ -237,7 +237,7 @@ class Circle {
             let velAlongNormal = p5.Vector.dot(rv, normal)
             
             // Do not resolve if velocities are separating
-           if(velAlongNormal > 0)
+            if(velAlongNormal > 0)
                 return;
             
             // Calculate restitution
