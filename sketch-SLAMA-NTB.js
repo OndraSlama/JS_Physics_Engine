@@ -1,6 +1,5 @@
 function setup() {
     canvas1 = createCanvas(600, 400);
-    canvas1.parent('sketch-holder');
     jumpButton = createButton("JUMP!");
     jumpButton.mouseClicked(shakeBalls);
     jumpSlider = createSlider(100, 1000, 250, 50);
